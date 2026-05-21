@@ -1,0 +1,7 @@
+interface:
+  display_name: "AI-DLC"
+  short_description: "Explicit AWS AI-DLC workflow guidance"
+  default_prompt: "Use $aidlc to guide this task with the AWS AI-DLC workflow."
+
+policy:
+  allow_implicit_invocation: false
