@@ -138,7 +138,7 @@ Do not commit a real Stitch key to this repository, AI-DLC artifacts, `DESIGN.md
 
 ### Configure Stitch for Codex or an MCP Client
 
-For direct HTTP MCP configuration, use the Stitch MCP endpoint and pass the key as an HTTP header:
+For Codex, the simplest setup is to register Stitch as an MCP server in your Codex config file, usually `~/.codex/config.toml`. Use the Stitch MCP endpoint and pass the key as an HTTP header:
 
 ```toml
 [mcp_servers.stitch]

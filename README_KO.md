@@ -138,7 +138,7 @@ Google account에 Stitch access가 있다면 다음 순서로 가져옵니다.
 
 ### Codex 또는 MCP Client 설정
 
-Direct HTTP MCP 설정에서는 Stitch MCP endpoint를 사용하고 key를 HTTP header로 전달합니다.
+Codex에서는 Stitch를 MCP server로 Codex config file에 등록하는 방식이 가장 간편합니다. 일반적으로 `~/.codex/config.toml`에 아래처럼 설정합니다. Stitch MCP endpoint를 사용하고 key를 HTTP header로 전달합니다.
 
 ```toml
 [mcp_servers.stitch]
