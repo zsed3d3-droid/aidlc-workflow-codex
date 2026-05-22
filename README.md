@@ -46,6 +46,14 @@ The installer will:
 4. Add a `SessionStart` startup hook that runs the AI-DLC updater.
 5. Run one best-effort update after installation.
 
+## Prompt an AI Agent to Install
+
+Use this prompt when you want an AI coding agent to apply the skills for you:
+
+```text
+Clone https://github.com/zsed3d3-droid/aidlc-workflow-codex and run ./install-aidlc-skill.sh to apply the Codex skills from that repository.
+```
+
 ## Manual Skill Install
 
 If you do not want to use the script:

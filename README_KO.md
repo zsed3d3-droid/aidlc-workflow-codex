@@ -46,6 +46,14 @@ installer는 다음 작업을 수행합니다.
 4. AI-DLC updater를 실행하는 `SessionStart` startup hook을 추가합니다.
 5. 설치 후 best-effort update를 한 번 실행합니다.
 
+## AI Agent에게 설치 요청하기
+
+AI coding agent에게 skills 적용을 맡길 때는 아래 prompt를 그대로 사용할 수 있습니다.
+
+```text
+https://github.com/zsed3d3-droid/aidlc-workflow-codex 를 clone 해서, ./install-aidlc-skill.sh 으로 Codex skills 에 해당 repo에 있는 skills 를 적용해줘
+```
+
 ## 수동 Skill 설치
 
 script를 사용하지 않으려면 다음 명령을 실행합니다.
