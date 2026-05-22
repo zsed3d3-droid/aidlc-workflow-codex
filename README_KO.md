@@ -22,6 +22,7 @@ $aidlc
 - `aidlc/scripts/update_aidlc_rules.py` - bundled AI-DLC rules updater
 - `aidlc/references/aidlc-rules/` - 로컬 AI-DLC rule cache
 - `aidlc/references/frontend-design-contract.md` - AI-DLC frontend work와 프로젝트 `DESIGN.md`를 연결하는 Codex 전용 mapping
+- `aidlc/references/design-md/` - bundled DESIGN.md template, validation checklist, design movement reference catalog
 - `install-aidlc-skill.sh` - skill을 Codex에 복사하고 `~/.codex/hooks.json`을 patch하는 installer
 
 ## 설치
@@ -100,6 +101,7 @@ Frontend AI-DLC 작업에서는 target project의 `DESIGN.md`를 canonical desig
 - visual token을 AI-DLC 문서에 중복 복사하지 않습니다.
 - 제안된 UI를 `DESIGN.md` 기준으로 평가합니다.
 - 구현된 screen을 `DESIGN.md` 기준으로 audit합니다.
+- design direction이 명시되지 않은 경우 `aidlc/references/design-md/`에서 design movement 또는 style lineage를 선택합니다.
 
 Project-specific `DESIGN.md` 파일은 이 script가 global로 설치하지 않습니다. UI 작업을 지배해야 하는 target project root 또는 frontend app root에 직접 두세요.
 

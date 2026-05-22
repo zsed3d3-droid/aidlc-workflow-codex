@@ -40,6 +40,21 @@ Preferred order:
 
 Evaluate every provider output with `eval-design-md` before accepting it into implementation. Audit implemented UI with `check-design-md`.
 
+## Design Movement References
+
+When a frontend task needs a new `DESIGN.md` and the visual direction is not already explicit, use the bundled references under `design-md/`:
+
+1. Read `design-md/design-movements.md` as the routing index.
+2. Pick the smallest relevant movement detail file, usually one of:
+   - `design-md/movements-product-web.md`
+   - `design-md/movements-game-ui.md`
+   - `design-md/movements-learning-edtech.md`
+3. Load a second detail file only for a clearly hybrid product.
+4. Use `design-md/design-md-template.md` when drafting the design contract.
+5. Validate manually with `design-md/design-md-validation.md` when `npx @google/design.md lint DESIGN.md` is unavailable.
+
+Do not paste whole movement catalogs into AI-DLC artifacts. Record only the selected movement or hybrid, the rationale, enforceable UI rules, and forbidden anti-patterns.
+
 ## Stitch Auth Gate
 
 Before any Stitch SDK/MCP call, inspect the environment:

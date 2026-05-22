@@ -22,6 +22,7 @@ $aidlc
 - `aidlc/scripts/update_aidlc_rules.py` - updater for the bundled AI-DLC rules.
 - `aidlc/references/aidlc-rules/` - local AI-DLC rule cache.
 - `aidlc/references/frontend-design-contract.md` - Codex-specific mapping between AI-DLC frontend work and a project `DESIGN.md`.
+- `aidlc/references/design-md/` - bundled DESIGN.md template, validation checklist, and design movement reference catalog.
 - `install-aidlc-skill.sh` - installer that copies the skill into Codex and patches `~/.codex/hooks.json`.
 
 ## Install
@@ -100,6 +101,7 @@ For frontend AI-DLC work, keep the target project's `DESIGN.md` as the canonical
 - avoid duplicating visual tokens into AI-DLC documents;
 - evaluate proposed UI against `DESIGN.md`;
 - audit implemented screens against `DESIGN.md`.
+- resolve design movement or style lineage from `aidlc/references/design-md/` when the direction is not already explicit.
 
 Project-specific `DESIGN.md` files are not installed globally by this script. Copy them into each target project root or frontend app root where they should govern UI work.
 
