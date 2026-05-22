@@ -103,6 +103,52 @@ Frontend AI-DLC 작업에서는 target project의 `DESIGN.md`를 canonical desig
 
 Project-specific `DESIGN.md` 파일은 이 script가 global로 설치하지 않습니다. UI 작업을 지배해야 하는 target project root 또는 frontend app root에 직접 두세요.
 
+## Stitch MCP/API 연동
+
+Frontend AI-DLC 작업에서는 이 skill이 Google Stitch를 Stitch MCP 또는 Stitch SDK/API를 통해 선택적으로 사용할 수 있습니다. Stitch는 screen ideation, variant 생성, Stitch screen artifact 조회에 사용할 수 있습니다. 단, Stitch output은 ideation provider일 뿐이며 target project의 `DESIGN.md`가 계속 canonical design contract입니다.
+
+Stitch는 필수 dependency가 아닙니다. credential이 없거나, authentication이 실패하거나, quota/billing/access 문제로 호출할 수 없거나, Stitch MCP/API surface가 바뀐 경우에는 `aidlc/references/frontend-design-contract.md`에 정의된 fallback ladder로 계속 진행해야 합니다.
+
+### Stitch API Key 가져오기
+
+Google account에 Stitch access가 있다면 다음 순서로 가져옵니다.
+
+1. `https://stitch.withgoogle.com/settings`를 엽니다.
+2. Stitch project를 소유할 Google account로 sign in합니다.
+3. API Keys section을 엽니다.
+4. API key를 생성하거나 복사합니다.
+5. key는 local environment, MCP client config, secret store에만 저장합니다.
+
+실제 Stitch key를 이 repository, AI-DLC artifact, `DESIGN.md`, chat transcript, completion report에 commit하거나 붙여 넣지 마세요.
+
+### Codex 또는 MCP Client 설정
+
+Direct HTTP MCP 설정에서는 Stitch MCP endpoint를 사용하고 key를 HTTP header로 전달합니다.
+
+```toml
+[mcp_servers.stitch]
+url = "https://stitch.googleapis.com/mcp"
+
+[mcp_servers.stitch.http_headers]
+"X-Goog-Api-Key" = "<your-stitch-api-key>"
+```
+
+Environment 기반 설정에서는 Codex 또는 MCP client를 시작하기 전에 key를 export합니다.
+
+```bash
+export STITCH_API_KEY="<your-stitch-api-key>"
+```
+
+AI-DLC Stitch auth gate는 다음 값도 인식합니다.
+
+- `STITCH_ENABLED=false` - credential이 있어도 Stitch를 비활성화합니다.
+- `STITCH_API_KEY` - API key authentication.
+- `STITCH_ACCESS_TOKEN` plus `GOOGLE_CLOUD_PROJECT` - OAuth-style authentication.
+- `STITCH_HOST` - default MCP endpoint override.
+- `STITCH_MAX_CALLS_PER_RUN` - 한 run에서 Stitch 호출 횟수 제한.
+
+일부 MCP client 또는 Stitch SDK flow는 API key 대신 OAuth/gcloud credential을 선호할 수 있습니다. 이 경우 Google Cloud에 local authentication을 수행하고, Stitch access가 있는 project를 선택한 뒤, raw secret을 repository에 저장하지 말고 access token/project ID 방식으로 client를 설정하세요.
+
 ## 검증
 
 ```bash

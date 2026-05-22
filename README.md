@@ -103,6 +103,52 @@ For frontend AI-DLC work, keep the target project's `DESIGN.md` as the canonical
 
 Project-specific `DESIGN.md` files are not installed globally by this script. Copy them into each target project root or frontend app root where they should govern UI work.
 
+## Stitch MCP/API Integration
+
+For frontend AI-DLC work, this skill can optionally use Google Stitch through Stitch MCP or the Stitch SDK/API to ideate screens, generate variants, or retrieve Stitch screen artifacts. Stitch output is treated as an ideation provider only; the target project's `DESIGN.md` remains the canonical design contract.
+
+Stitch is not required. If credentials are missing, authentication fails, quota or billing blocks the call, or the Stitch MCP/API surface changes, AI-DLC should continue with the fallback ladder described in `aidlc/references/frontend-design-contract.md`.
+
+### Get a Stitch API Key
+
+If your Google account has Stitch access:
+
+1. Open `https://stitch.withgoogle.com/settings`.
+2. Sign in with the Google account that should own the Stitch projects.
+3. Open the API Keys section.
+4. Create or copy an API key.
+5. Store the key only in your local environment, MCP client config, or secret store.
+
+Do not commit a real Stitch key to this repository, AI-DLC artifacts, `DESIGN.md`, chat transcripts, or completion reports.
+
+### Configure Stitch for Codex or an MCP Client
+
+For direct HTTP MCP configuration, use the Stitch MCP endpoint and pass the key as an HTTP header:
+
+```toml
+[mcp_servers.stitch]
+url = "https://stitch.googleapis.com/mcp"
+
+[mcp_servers.stitch.http_headers]
+"X-Goog-Api-Key" = "<your-stitch-api-key>"
+```
+
+For environment-based setup, export the key before starting Codex or your MCP client:
+
+```bash
+export STITCH_API_KEY="<your-stitch-api-key>"
+```
+
+The AI-DLC Stitch auth gate also recognizes:
+
+- `STITCH_ENABLED=false` - disable Stitch even if credentials exist.
+- `STITCH_API_KEY` - API key authentication.
+- `STITCH_ACCESS_TOKEN` plus `GOOGLE_CLOUD_PROJECT` - OAuth-style authentication.
+- `STITCH_HOST` - override the default MCP endpoint.
+- `STITCH_MAX_CALLS_PER_RUN` - cap Stitch calls for a run.
+
+Some MCP clients or Stitch SDK flows may prefer OAuth/gcloud credentials instead of an API key. In that case, authenticate locally with Google Cloud, select the project that has Stitch access, and configure the client with the resulting access token/project ID rather than storing raw secrets in the repo.
+
 ## Verify
 
 ```bash
