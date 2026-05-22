@@ -57,6 +57,18 @@ Do not paste whole movement catalogs into AI-DLC artifacts. Record only the sele
 
 For Korean-language planning or documentation, use the translated counterparts under `design-md-ko/`. Each translated file keeps the source basename and adds a `-ko` suffix, for example `design-md-ko/design-movements-ko.md` and `design-md-ko/movements-product-web-ko.md`.
 
+If the bundled references do not produce fitting options, and web access is available, perform targeted research before asking the user. Prefer official design-system documentation, product/design case studies, or reputable primary references over generic trend lists. Use the research only to generate two or three concrete `request_user_input` options; do not import unverified style claims directly into `DESIGN.md`.
+
+## Existing Project Design Continuity
+
+For migrations, refactors, redesigns, modernization, feature enhancements, or high-fidelity rebuilds of an existing frontend, inspect the current product before proposing a new movement:
+
+- Read existing `DESIGN.md`, design tokens, theme files, component libraries, CSS/Tailwind/Flutter theme definitions, screenshots, Figma/Stitch exports, product docs, and important routes.
+- Identify the current movement or style lineage, reusable component language, typography, color roles, spacing/radius model, and interaction states.
+- Ask through `request_user_input` whether to preserve, evolve, or replace the existing movement and component system when the answer is not explicit.
+- Include continuity options such as "preserve existing movement/components", "evolve the existing movement with stricter DESIGN.md tokens", and "replace with a new movement" when those are meaningful tradeoffs.
+- Treat "preserve" as the default for migration/refactor/enhancement work unless the user explicitly requests a redesign or the existing UI conflicts with accessibility, usability, or product requirements.
+
 ## Stitch Auth Gate
 
 Before any Stitch SDK/MCP call, inspect the environment:
@@ -105,6 +117,7 @@ When the Codex question bridge is available and the answers are not discoverable
 
 - Whether the frontend must create a new `DESIGN.md` or follow an existing one.
 - The preferred design movement or style lineage, when product docs do not imply one.
+- For migrations, refactors, enhancements, or existing-project modernization, whether to preserve, evolve, or replace the current design movement and component system.
 - Primary target form factors and accessibility constraints.
 - Whether visual evaluation/audit gates should block implementation completion.
 - If Stitch is requested and credentials are missing, which auth path to use: local API key env, OAuth/gcloud env, or fallback without Stitch.

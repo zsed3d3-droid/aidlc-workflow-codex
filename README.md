@@ -115,6 +115,8 @@ For frontend AI-DLC work, keep the target project's `DESIGN.md` as the canonical
 - audit implemented screens against `DESIGN.md`.
 - resolve design movement or style lineage from `aidlc/references/design-md/` when the direction is not already explicit.
 - use `aidlc/references/design-md-ko/` when Korean-language DESIGN.md planning references are needed.
+- in Plan Mode, ask which design movement to use through `request_user_input` after reading existing project documents and bundled references; if those references are insufficient and web access is available, research additional options before asking.
+- for migrations, refactors, enhancements, or modernization of an existing frontend, ask whether to preserve, evolve, or replace the current design movement and component system.
 
 Project-specific `DESIGN.md` files are not installed globally by this script. Copy them into each target project root or frontend app root where they should govern UI work.
 

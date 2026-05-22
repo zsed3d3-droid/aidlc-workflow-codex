@@ -115,6 +115,8 @@ Frontend AI-DLC 작업에서는 target project의 `DESIGN.md`를 canonical desig
 - 구현된 screen을 `DESIGN.md` 기준으로 audit합니다.
 - design direction이 명시되지 않은 경우 `aidlc/references/design-md/`에서 design movement 또는 style lineage를 선택합니다.
 - 한국어 DESIGN.md planning reference가 필요하면 `aidlc/references/design-md-ko/`를 사용합니다.
+- Plan Mode에서는 기존 project 문서와 bundled reference를 먼저 읽은 뒤, 어떤 design movement로 갈지 `request_user_input`으로 질문합니다. reference가 부족하고 web access가 가능하면 추가 research로 후보를 보강한 뒤 질문합니다.
+- 기존 frontend의 migration, refactor, enhancement, modernization 작업에서는 현재 design movement와 component system을 유지할지, 점진적으로 고도화할지, 새 movement로 교체할지 함께 질문합니다.
 
 Project-specific `DESIGN.md` 파일은 이 script가 global로 설치하지 않습니다. UI 작업을 지배해야 하는 target project root 또는 frontend app root에 직접 두세요.
 

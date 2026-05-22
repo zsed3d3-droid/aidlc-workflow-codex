@@ -26,15 +26,18 @@ If the design direction is already explicit in the user prompt, brand docs, exis
 
 When this skill is installed from the AI-DLC-CODEX package, Korean translations of the movement references are available in the sibling AI-DLC skill at `../aidlc/references/design-md-ko/`. Use those translated files for Korean-language planning while keeping the generated `DESIGN.md` token schema compatible with the template in `references/design-md-template.md`.
 
+For migrations, refactors, modernization, enhancements, or existing frontend projects, infer the current design movement and component language before proposing changes. Inspect existing `DESIGN.md`, theme files, component primitives, screenshots, Figma/Stitch exports, routes, and product docs. If the user has not already chosen a redesign, ask whether to preserve, evolve, or replace the current movement and component system. Default to preserving continuity when the task is a migration/refactor/enhancement rather than a redesign.
+
 If the direction is unclear and `request_user_input` is available, ask the user to choose a design movement before generating `DESIGN.md`:
 
 1. Read [design-movements.md](references/design-movements.md) as the compact routing index.
 2. Pick the most relevant movement detail file from the routing table and read only that file. Load a second detail file only for a clear hybrid case.
-3. Do not load all movement detail files just to choose options.
-4. Propose two or three fitting movement options.
-5. Put the recommended option first.
-6. Make every option description concrete enough to justify the recommendation.
-7. Include the main tradeoff for each option.
+3. If bundled references do not produce fitting options, and web access is available, do targeted external research before asking. Prefer official design-system docs, product/design case studies, and reputable primary references over generic trend lists.
+4. Do not load all movement detail files just to choose options.
+5. Propose two or three fitting movement options through `request_user_input`.
+6. Put the recommended option first.
+7. Make every option description concrete enough to justify the recommendation.
+8. Include the main tradeoff for each option.
 
 Each option description must cite specific evidence from the project context:
 
