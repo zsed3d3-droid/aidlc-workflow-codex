@@ -6,19 +6,34 @@ CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
 SKILLS_DIR="$CODEX_HOME/skills"
 TARGET_SKILL_DIR="$SKILLS_DIR/aidlc"
 HOOKS_FILE="$CODEX_HOME/hooks.json"
-SOURCE_SKILL_DIR="$SCRIPT_DIR/aidlc"
 UPDATER_COMMAND="python3 \"$TARGET_SKILL_DIR/scripts/update_aidlc_rules.py\" --retries 3 --best-effort"
+BUNDLED_SKILLS=(
+  "aidlc:$SCRIPT_DIR/aidlc"
+  "create-design-md:$SCRIPT_DIR/skills/create-design-md"
+  "use-design-md:$SCRIPT_DIR/skills/use-design-md"
+  "eval-design-md:$SCRIPT_DIR/skills/eval-design-md"
+  "check-design-md:$SCRIPT_DIR/skills/check-design-md"
+)
 
-if [[ ! -f "$SOURCE_SKILL_DIR/SKILL.md" ]]; then
-  echo "Missing skill source: $SOURCE_SKILL_DIR/SKILL.md" >&2
-  exit 1
-fi
+for skill_spec in "${BUNDLED_SKILLS[@]}"; do
+  skill_name="${skill_spec%%:*}"
+  source_dir="${skill_spec#*:}"
+  if [[ ! -f "$source_dir/SKILL.md" ]]; then
+    echo "Missing skill source for $skill_name: $source_dir/SKILL.md" >&2
+    exit 1
+  fi
+done
 
 mkdir -p "$SKILLS_DIR"
-if [[ -e "$TARGET_SKILL_DIR" ]]; then
-  mv "$TARGET_SKILL_DIR" "$TARGET_SKILL_DIR.bak-$(date +%Y%m%d%H%M%S)-$$"
-fi
-cp -R "$SOURCE_SKILL_DIR" "$TARGET_SKILL_DIR"
+for skill_spec in "${BUNDLED_SKILLS[@]}"; do
+  skill_name="${skill_spec%%:*}"
+  source_dir="${skill_spec#*:}"
+  target_dir="$SKILLS_DIR/$skill_name"
+  if [[ -e "$target_dir" ]]; then
+    mv "$target_dir" "$target_dir.bak-$(date +%Y%m%d%H%M%S)-$$"
+  fi
+  cp -R "$source_dir" "$target_dir"
+done
 
 python3 - "$HOOKS_FILE" "$UPDATER_COMMAND" <<'PY'
 import json
@@ -73,4 +88,11 @@ PY
 python3 "$TARGET_SKILL_DIR/scripts/update_aidlc_rules.py" --retries 3 --best-effort
 
 echo "Installed AI-DLC skill to: $TARGET_SKILL_DIR"
+echo "Installed DESIGN.md skills to:"
+for skill_spec in "${BUNDLED_SKILLS[@]}"; do
+  skill_name="${skill_spec%%:*}"
+  if [[ "$skill_name" != "aidlc" ]]; then
+    echo "  $SKILLS_DIR/$skill_name"
+  fi
+done
 echo "Updated Codex hooks file: $HOOKS_FILE"

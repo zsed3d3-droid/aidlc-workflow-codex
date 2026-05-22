@@ -23,7 +23,12 @@ $aidlc
 - `aidlc/references/aidlc-rules/` - 로컬 AI-DLC rule cache
 - `aidlc/references/frontend-design-contract.md` - AI-DLC frontend work와 프로젝트 `DESIGN.md`를 연결하는 Codex 전용 mapping
 - `aidlc/references/design-md/` - bundled DESIGN.md template, validation checklist, design movement reference catalog
-- `install-aidlc-skill.sh` - skill을 Codex에 복사하고 `~/.codex/hooks.json`을 patch하는 installer
+- `aidlc/references/design-md-ko/` - bundled DESIGN.md reference의 한국어 번역본. 파일명은 `-ko` suffix를 사용합니다.
+- `skills/create-design-md/` - project `DESIGN.md` 생성을 위한 bundled skill
+- `skills/use-design-md/` - 기존 `DESIGN.md` 적용 및 확장을 위한 bundled skill
+- `skills/eval-design-md/` - 제안된 UI를 `DESIGN.md` 기준으로 평가하는 bundled skill
+- `skills/check-design-md/` - 구현된 UI를 `DESIGN.md` 기준으로 audit하는 bundled skill
+- `install-aidlc-skill.sh` - AI-DLC와 DESIGN.md skills를 Codex에 복사하고 `~/.codex/hooks.json`을 patch하는 installer
 
 ## 설치
 
@@ -36,9 +41,10 @@ $aidlc
 installer는 다음 작업을 수행합니다.
 
 1. `aidlc/`를 `~/.codex/skills/aidlc/`로 복사하고, 기존 `aidlc` skill이 있으면 먼저 백업합니다.
-2. 기존 `~/.codex/hooks.json`이 있으면 백업합니다.
-3. AI-DLC updater를 실행하는 `SessionStart` startup hook을 추가합니다.
-4. 설치 후 best-effort update를 한 번 실행합니다.
+2. bundled DESIGN.md skills를 `~/.codex/skills/create-design-md/`, `use-design-md/`, `eval-design-md/`, `check-design-md/`에 복사하고, 기존 skill directory가 있으면 먼저 백업합니다.
+3. 기존 `~/.codex/hooks.json`이 있으면 백업합니다.
+4. AI-DLC updater를 실행하는 `SessionStart` startup hook을 추가합니다.
+5. 설치 후 best-effort update를 한 번 실행합니다.
 
 ## 수동 Skill 설치
 
@@ -46,11 +52,17 @@ script를 사용하지 않으려면 다음 명령을 실행합니다.
 
 ```bash
 mkdir -p "$HOME/.codex/skills"
-rm -rf "$HOME/.codex/skills/aidlc"
+for skill in aidlc create-design-md use-design-md eval-design-md check-design-md; do
+  rm -rf "$HOME/.codex/skills/$skill"
+done
 cp -R "./aidlc" "$HOME/.codex/skills/aidlc"
+cp -R "./skills/create-design-md" "$HOME/.codex/skills/create-design-md"
+cp -R "./skills/use-design-md" "$HOME/.codex/skills/use-design-md"
+cp -R "./skills/eval-design-md" "$HOME/.codex/skills/eval-design-md"
+cp -R "./skills/check-design-md" "$HOME/.codex/skills/check-design-md"
 ```
 
-설치 후 Codex에서 다음처럼 명시적으로 호출할 수 있습니다.
+설치 후 Codex에서 `$aidlc`와 bundled DESIGN.md skills를 명시적으로 호출할 수 있습니다.
 
 ```text
 $aidlc
@@ -102,6 +114,7 @@ Frontend AI-DLC 작업에서는 target project의 `DESIGN.md`를 canonical desig
 - 제안된 UI를 `DESIGN.md` 기준으로 평가합니다.
 - 구현된 screen을 `DESIGN.md` 기준으로 audit합니다.
 - design direction이 명시되지 않은 경우 `aidlc/references/design-md/`에서 design movement 또는 style lineage를 선택합니다.
+- 한국어 DESIGN.md planning reference가 필요하면 `aidlc/references/design-md-ko/`를 사용합니다.
 
 Project-specific `DESIGN.md` 파일은 이 script가 global로 설치하지 않습니다. UI 작업을 지배해야 하는 target project root 또는 frontend app root에 직접 두세요.
 

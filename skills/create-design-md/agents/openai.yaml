@@ -1,0 +1,4 @@
+interface:
+  display_name: "Create DESIGN.md"
+  short_description: "Generate frontend DESIGN.md files"
+  default_prompt: "Create a frontend DESIGN.md for this project."

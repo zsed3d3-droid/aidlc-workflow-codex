@@ -23,7 +23,12 @@ $aidlc
 - `aidlc/references/aidlc-rules/` - local AI-DLC rule cache.
 - `aidlc/references/frontend-design-contract.md` - Codex-specific mapping between AI-DLC frontend work and a project `DESIGN.md`.
 - `aidlc/references/design-md/` - bundled DESIGN.md template, validation checklist, and design movement reference catalog.
-- `install-aidlc-skill.sh` - installer that copies the skill into Codex and patches `~/.codex/hooks.json`.
+- `aidlc/references/design-md-ko/` - Korean translations of the bundled DESIGN.md references, using `-ko` filename suffixes.
+- `skills/create-design-md/` - bundled skill for creating project `DESIGN.md` files.
+- `skills/use-design-md/` - bundled skill for applying and extending existing `DESIGN.md` files.
+- `skills/eval-design-md/` - bundled skill for evaluating proposed UI against `DESIGN.md`.
+- `skills/check-design-md/` - bundled skill for auditing implemented UI against `DESIGN.md`.
+- `install-aidlc-skill.sh` - installer that copies AI-DLC and DESIGN.md skills into Codex and patches `~/.codex/hooks.json`.
 
 ## Install
 
@@ -36,9 +41,10 @@ From this repository root:
 The installer will:
 
 1. Copy `aidlc/` to `~/.codex/skills/aidlc/`, backing up an existing `aidlc` skill first.
-2. Back up `~/.codex/hooks.json` if it already exists.
-3. Add a `SessionStart` startup hook that runs the AI-DLC updater.
-4. Run one best-effort update after installation.
+2. Copy bundled DESIGN.md skills to `~/.codex/skills/create-design-md/`, `use-design-md/`, `eval-design-md/`, and `check-design-md/`, backing up existing skill directories first.
+3. Back up `~/.codex/hooks.json` if it already exists.
+4. Add a `SessionStart` startup hook that runs the AI-DLC updater.
+5. Run one best-effort update after installation.
 
 ## Manual Skill Install
 
@@ -46,11 +52,17 @@ If you do not want to use the script:
 
 ```bash
 mkdir -p "$HOME/.codex/skills"
-rm -rf "$HOME/.codex/skills/aidlc"
+for skill in aidlc create-design-md use-design-md eval-design-md check-design-md; do
+  rm -rf "$HOME/.codex/skills/$skill"
+done
 cp -R "./aidlc" "$HOME/.codex/skills/aidlc"
+cp -R "./skills/create-design-md" "$HOME/.codex/skills/create-design-md"
+cp -R "./skills/use-design-md" "$HOME/.codex/skills/use-design-md"
+cp -R "./skills/eval-design-md" "$HOME/.codex/skills/eval-design-md"
+cp -R "./skills/check-design-md" "$HOME/.codex/skills/check-design-md"
 ```
 
-After that, Codex can use the skill when you explicitly invoke:
+After that, Codex can use `$aidlc` and the bundled DESIGN.md skills when you explicitly invoke:
 
 ```text
 $aidlc
@@ -102,6 +114,7 @@ For frontend AI-DLC work, keep the target project's `DESIGN.md` as the canonical
 - evaluate proposed UI against `DESIGN.md`;
 - audit implemented screens against `DESIGN.md`.
 - resolve design movement or style lineage from `aidlc/references/design-md/` when the direction is not already explicit.
+- use `aidlc/references/design-md-ko/` when Korean-language DESIGN.md planning references are needed.
 
 Project-specific `DESIGN.md` files are not installed globally by this script. Copy them into each target project root or frontend app root where they should govern UI work.
 

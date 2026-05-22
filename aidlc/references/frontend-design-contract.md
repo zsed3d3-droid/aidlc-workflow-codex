@@ -55,6 +55,8 @@ When a frontend task needs a new `DESIGN.md` and the visual direction is not alr
 
 Do not paste whole movement catalogs into AI-DLC artifacts. Record only the selected movement or hybrid, the rationale, enforceable UI rules, and forbidden anti-patterns.
 
+For Korean-language planning or documentation, use the translated counterparts under `design-md-ko/`. Each translated file keeps the source basename and adds a `-ko` suffix, for example `design-md-ko/design-movements-ko.md` and `design-md-ko/movements-product-web-ko.md`.
+
 ## Stitch Auth Gate
 
 Before any Stitch SDK/MCP call, inspect the environment:

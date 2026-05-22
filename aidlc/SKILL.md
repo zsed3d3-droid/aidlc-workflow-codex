@@ -103,7 +103,7 @@ When explicit AI-DLC work includes frontend UI, treat `DESIGN.md` as the fronten
 
 Use [frontend-design-contract.md](references/frontend-design-contract.md) for the lifecycle mapping and artifact rules.
 
-- Use the bundled DESIGN.md references under `references/design-md/` as the local source for DESIGN.md templates, validation checks, and design movement/style-lineage selection.
+- Use the bundled DESIGN.md references under `references/design-md/` as the local source for DESIGN.md templates, validation checks, and design movement/style-lineage selection. Korean translations are available under `references/design-md-ko/` with `-ko` filename suffixes.
 - If no project `DESIGN.md` exists, use `create-design-md` during Inception/Application Design before frontend implementation.
 - If a project `DESIGN.md` exists, use `use-design-md` for frontend Functional Design, Code Generation, and any UI implementation.
 - If Stitch SDK/MCP is used for screen ideation, apply the Stitch auth gate and fallback ladder in [frontend-design-contract.md](references/frontend-design-contract.md). Ask for an authentication method through `request_user_input` only when that tool is available; never ask the user to paste raw secrets into chat.

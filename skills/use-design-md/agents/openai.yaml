@@ -1,0 +1,4 @@
+interface:
+  display_name: "Use DESIGN.md"
+  short_description: "Apply and extend frontend DESIGN.md"
+  default_prompt: "Use the project DESIGN.md while implementing UI."

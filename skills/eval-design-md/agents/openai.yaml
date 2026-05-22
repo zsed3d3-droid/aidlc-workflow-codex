@@ -1,0 +1,4 @@
+interface:
+  display_name: "Evaluate DESIGN.md"
+  short_description: "Review UI against DESIGN.md"
+  default_prompt: "Evaluate this UI against the project DESIGN.md."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Check DESIGN.md"
+  short_description: "Audit frontend implementation against DESIGN.md"
+  default_prompt: "Check this frontend implementation against DESIGN.md."
