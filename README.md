@@ -22,6 +22,7 @@ $aidlc
 - `aidlc/scripts/update_aidlc_rules.py` - updater for the bundled AI-DLC rules.
 - `aidlc/references/aidlc-rules/` - local AI-DLC rule cache.
 - `aidlc/references/frontend-design-contract.md` - Codex-specific mapping between AI-DLC frontend work and a project `DESIGN.md`.
+- `aidlc/references/standard_terms_template.md` - template for project-root `standard_terms.md` terminology contracts.
 - `aidlc/references/design-md/` - bundled DESIGN.md template, validation checklist, and design movement reference catalog.
 - `aidlc/references/design-md-ko/` - Korean translations of the bundled DESIGN.md references, using `-ko` filename suffixes.
 - `skills/create-design-md/` - bundled skill for creating project `DESIGN.md` files.
@@ -111,6 +112,23 @@ python3 "$HOME/.codex/skills/aidlc/scripts/update_aidlc_rules.py" --retries 3 --
 ```
 
 The updater preserves the existing local cache if the network, GitHub, archive extraction, or validation fails.
+
+## Standard Terms Usage
+
+For explicit `$aidlc` work, the skill treats a project-root `standard_terms.md` file as the canonical terminology contract for the target project. This glossary is separate from `aidlc-docs/` because it governs the project itself, not only one AI-DLC run.
+
+How this maps to AWS AI-DLC phases:
+
+| AI-DLC phase | Codex adaptation |
+|---|---|
+| Workspace Detection / Reverse Engineering | Inspect existing docs, code identifiers, API names, domain entities, UI copy, and migration vocabulary for established terms. |
+| Requirements Analysis | Create or update `standard_terms.md` before finalizing requirements. New domain terms, acronyms, roles, external systems, data terms, migration terms, and overloaded labels must be defined before documents depend on them. |
+| User Stories / Workflow Planning / Application Design | Write and revise documents using the preferred terms from `standard_terms.md`; avoid synonym drift across stories, flows, architecture, APIs, data models, and UI language. |
+| Units Generation | Validate unit names, responsibilities, dependencies, acceptance criteria, and story mappings against `standard_terms.md` before treating unit decomposition as complete. |
+| Inception Validation | Present `standard_terms.md` as a required human review artifact. The reviewer must read it and confirm that Inception outputs follow the preferred terms and definitions. This terminology review gate is not self-approved by the agent. |
+| Construction and Review | Functional design, NFR docs, infrastructure design, code-generation plans, and review artifacts continue to reference `standard_terms.md`. If a new concept appears later, define it first, then update affected AI-DLC documents. |
+
+If a term affects scope, API behavior, data model, UX, security, compliance, migration behavior, or acceptance criteria and cannot be defined from strong local evidence, the skill should ask through the active AI-DLC question gate instead of guessing.
 
 ## DESIGN.md Usage
 

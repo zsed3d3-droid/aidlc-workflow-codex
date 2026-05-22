@@ -47,6 +47,7 @@ Before emitting a final Plan Mode `<proposed_plan>`, confirm the plan has enough
 - non-functional requirements
 - technical context and integration boundaries
 - selected AI-DLC extension gates
+- standard terminology coverage for Inception artifacts, when Inception is in scope
 - testing and verification expectations
 - implementation handoff constraints
 
@@ -71,6 +72,39 @@ Follow the AI-DLC rules while staying under the active Codex, AGENTS.md, and too
 3. Produce the minimum required AI-DLC artifact for the phase before implementation.
 4. Keep artifacts local to the target project unless the user requests a global artifact.
 5. Verify changes with the project's existing test, lint, typecheck, and static-analysis commands when available.
+
+## Standard Terms Contract
+
+For every explicit `$aidlc` Inception flow, create or update `standard_terms.md` at the target project root. This is a project-level terminology contract and is an intentional local Codex adaptation of AI-DLC; do not place the canonical glossary only under `aidlc-docs/`.
+
+If `standard_terms.md` is missing, initialize it from [standard_terms_template.md](references/standard_terms_template.md) and populate it from the user request, existing project docs, reverse-engineering artifacts, code identifiers, API/domain models, UI copy, and AI-DLC Inception outputs.
+
+Terminology rules:
+
+1. Treat `standard_terms.md` as the canonical glossary for requirements, user stories, workflow plans, application design, unit decomposition, construction design docs, and review artifacts.
+2. Before finalizing any AI-DLC document, check it against `standard_terms.md` and correct synonym drift, renamed concepts, ambiguous labels, or inconsistent role/entity/API names.
+3. When a new term, acronym, role, external system, domain concept, migration concept, or overloaded label appears, either define it in `standard_terms.md` from strong local evidence or ask the user through the active question gate if the definition affects scope, API, data model, UX, security, compliance, migration behavior, or acceptance criteria.
+4. For migrations, refactors, and modernization work, preserve existing project terminology by default. Rename terms only when the user decides to do so or when evidence shows the current term is misleading or conflicting.
+5. AI-DLC artifacts should reference `standard_terms.md` instead of duplicating full glossary tables. Short local clarifications are allowed only when needed for readability.
+6. If terminology changes after documents are written, update the affected documents so they use the preferred terms.
+
+### Human Terminology Review Gate
+
+During Inception artifact validation, `standard_terms.md` is a mandatory human review artifact. Do not self-approve this gate.
+
+Before treating Inception outputs as approved:
+
+1. Present `standard_terms.md` at the project root as a required review target together with the Inception artifacts.
+2. Tell the human reviewer to read `standard_terms.md` and verify that requirements, user stories, workflow planning, application design, and unit decomposition use its preferred terms and definitions consistently.
+3. Require explicit confirmation that `standard_terms.md` was reviewed. When `request_user_input` is available, use it to collect that confirmation; otherwise include the requirement in the approval message and stop for the user's approval.
+4. If the reviewer or agent finds missing, unclear, duplicated, deprecated, or conflicting terms, update `standard_terms.md` first, then update affected AI-DLC documents before approval.
+5. Append the terminology review result, reviewer response, and any terminology corrections to `aidlc-docs/audit.md`.
+
+Use this wording in Inception completion or approval messages:
+
+```text
+Before approving Inception outputs, read `standard_terms.md` at the project root and verify that all Inception artifacts follow its preferred terms and definitions. If any new or unclear term appears, define it in `standard_terms.md` and update the affected AI-DLC documents before approval.
+```
 
 ## Integration Rules
 

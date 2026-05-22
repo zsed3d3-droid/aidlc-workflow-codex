@@ -22,6 +22,7 @@ $aidlc
 - `aidlc/scripts/update_aidlc_rules.py` - bundled AI-DLC rules updater
 - `aidlc/references/aidlc-rules/` - 로컬 AI-DLC rule cache
 - `aidlc/references/frontend-design-contract.md` - AI-DLC frontend work와 프로젝트 `DESIGN.md`를 연결하는 Codex 전용 mapping
+- `aidlc/references/standard_terms_template.md` - project root의 `standard_terms.md` terminology contract template
 - `aidlc/references/design-md/` - bundled DESIGN.md template, validation checklist, design movement reference catalog
 - `aidlc/references/design-md-ko/` - bundled DESIGN.md reference의 한국어 번역본. 파일명은 `-ko` suffix를 사용합니다.
 - `skills/create-design-md/` - project `DESIGN.md` 생성을 위한 bundled skill
@@ -111,6 +112,23 @@ python3 "$HOME/.codex/skills/aidlc/scripts/update_aidlc_rules.py" --retries 3 --
 ```
 
 network, GitHub, archive extraction, validation이 실패하면 updater는 기존 local cache를 보존합니다.
+
+## Standard Terms 사용
+
+명시적으로 `$aidlc`를 사용하는 작업에서 이 skill은 target project root의 `standard_terms.md`를 canonical terminology contract로 취급합니다. 이 glossary는 `aidlc-docs/` 내부가 아니라 project root에 둡니다. 이유는 한 번의 AI-DLC 실행 문서만이 아니라 프로젝트 전체의 요구사항, 설계, 구현, 리뷰 문서 용어를 지배하기 위해서입니다.
+
+AWS AI-DLC 단계에는 다음처럼 반영됩니다.
+
+| AI-DLC 단계 | Codex adaptation |
+|---|---|
+| Workspace Detection / Reverse Engineering | 기존 문서, code identifier, API name, domain entity, UI copy, migration vocabulary에서 이미 쓰이는 표준 용어를 수집합니다. |
+| Requirements Analysis | requirements를 확정하기 전에 `standard_terms.md`를 생성하거나 갱신합니다. 신규 domain term, acronym, role, external system, data term, migration term, 중의적인 label은 문서에서 의존하기 전에 먼저 정의해야 합니다. |
+| User Stories / Workflow Planning / Application Design | `standard_terms.md`의 preferred term을 기준으로 문서를 작성하고 보완합니다. story, flow, architecture, API, data model, UI language 사이에서 같은 개념이 다른 이름으로 흩어지지 않게 합니다. |
+| Units Generation | unit name, responsibility, dependency, acceptance criteria, story mapping을 `standard_terms.md` 기준으로 검증한 뒤 unit decomposition을 완료 처리합니다. |
+| Inception Validation | `standard_terms.md`를 사람이 반드시 읽어야 하는 review artifact로 제시합니다. reviewer는 Inception 산출물이 preferred terms와 definitions를 따르는지 확인해야 합니다. 이 terminology review gate는 agent가 self-approve하지 않습니다. |
+| Construction and Review | functional design, NFR docs, infrastructure design, code-generation plan, review artifact도 계속 `standard_terms.md`를 참조합니다. 이후 새 개념이 나오면 먼저 glossary에 정의하고 관련 AI-DLC 문서를 갱신합니다. |
+
+용어 정의가 scope, API behavior, data model, UX, security, compliance, migration behavior, acceptance criteria에 영향을 주고 local evidence만으로 확정할 수 없다면, skill은 추측하지 않고 active AI-DLC question gate로 질문해야 합니다.
 
 ## DESIGN.md 사용
 
