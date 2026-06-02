@@ -29,7 +29,8 @@ $aidlc
 - `skills/use-design-md/` - bundled skill for applying and extending existing `DESIGN.md` files.
 - `skills/eval-design-md/` - bundled skill for evaluating proposed UI against `DESIGN.md`.
 - `skills/check-design-md/` - bundled skill for auditing implemented UI against `DESIGN.md`.
-- `install-aidlc-skill.sh` - installer that copies AI-DLC and DESIGN.md skills into Codex and patches `~/.codex/hooks.json`.
+- `skills/google-ai-studio-md/` - bundled skill for creating AI Studio-ready PRD, Product Design Requirements, `DESIGN.md`, and copyable Build prompt bundles under `inception/`.
+- `install-aidlc-skill.sh` - installer that copies AI-DLC, DESIGN.md, and AI Studio skills into Codex and patches `~/.codex/hooks.json`.
 
 ## Install
 
@@ -42,7 +43,7 @@ From this repository root:
 The installer will:
 
 1. Copy `aidlc/` to `~/.codex/skills/aidlc/`, backing up an existing `aidlc` skill first.
-2. Copy bundled DESIGN.md skills to `~/.codex/skills/create-design-md/`, `use-design-md/`, `eval-design-md/`, and `check-design-md/`, backing up existing skill directories first.
+2. Copy bundled companion skills to `~/.codex/skills/create-design-md/`, `use-design-md/`, `eval-design-md/`, `check-design-md/`, and `google-ai-studio-md/`, backing up existing skill directories first.
 3. Back up `~/.codex/hooks.json` if it already exists.
 4. Add a `SessionStart` startup hook that runs the AI-DLC updater.
 5. Run one best-effort update after installation.
@@ -61,7 +62,7 @@ If you do not want to use the script:
 
 ```bash
 mkdir -p "$HOME/.codex/skills"
-for skill in aidlc create-design-md use-design-md eval-design-md check-design-md; do
+for skill in aidlc create-design-md use-design-md eval-design-md check-design-md google-ai-studio-md; do
   rm -rf "$HOME/.codex/skills/$skill"
 done
 cp -R "./aidlc" "$HOME/.codex/skills/aidlc"
@@ -69,12 +70,14 @@ cp -R "./skills/create-design-md" "$HOME/.codex/skills/create-design-md"
 cp -R "./skills/use-design-md" "$HOME/.codex/skills/use-design-md"
 cp -R "./skills/eval-design-md" "$HOME/.codex/skills/eval-design-md"
 cp -R "./skills/check-design-md" "$HOME/.codex/skills/check-design-md"
+cp -R "./skills/google-ai-studio-md" "$HOME/.codex/skills/google-ai-studio-md"
 ```
 
-After that, Codex can use `$aidlc` and the bundled DESIGN.md skills when you explicitly invoke:
+After that, Codex can use `$aidlc`, `$google-ai-studio-md`, and the bundled DESIGN.md skills when you explicitly invoke:
 
 ```text
 $aidlc
+$google-ai-studio-md
 ```
 
 or when you say `use AI-DLC` / `AI-DLC` in the task.

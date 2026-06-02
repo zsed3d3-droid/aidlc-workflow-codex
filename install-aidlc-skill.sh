@@ -13,6 +13,7 @@ BUNDLED_SKILLS=(
   "use-design-md:$SCRIPT_DIR/skills/use-design-md"
   "eval-design-md:$SCRIPT_DIR/skills/eval-design-md"
   "check-design-md:$SCRIPT_DIR/skills/check-design-md"
+  "google-ai-studio-md:$SCRIPT_DIR/skills/google-ai-studio-md"
 )
 
 for skill_spec in "${BUNDLED_SKILLS[@]}"; do
@@ -88,7 +89,7 @@ PY
 python3 "$TARGET_SKILL_DIR/scripts/update_aidlc_rules.py" --retries 3 --best-effort
 
 echo "Installed AI-DLC skill to: $TARGET_SKILL_DIR"
-echo "Installed DESIGN.md skills to:"
+echo "Installed bundled companion skills to:"
 for skill_spec in "${BUNDLED_SKILLS[@]}"; do
   skill_name="${skill_spec%%:*}"
   if [[ "$skill_name" != "aidlc" ]]; then

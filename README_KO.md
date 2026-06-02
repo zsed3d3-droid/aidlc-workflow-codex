@@ -29,7 +29,8 @@ $aidlc
 - `skills/use-design-md/` - 기존 `DESIGN.md` 적용 및 확장을 위한 bundled skill
 - `skills/eval-design-md/` - 제안된 UI를 `DESIGN.md` 기준으로 평가하는 bundled skill
 - `skills/check-design-md/` - 구현된 UI를 `DESIGN.md` 기준으로 audit하는 bundled skill
-- `install-aidlc-skill.sh` - AI-DLC와 DESIGN.md skills를 Codex에 복사하고 `~/.codex/hooks.json`을 patch하는 installer
+- `skills/google-ai-studio-md/` - Google AI Studio에 전달할 PRD, Product Design Requirements, `DESIGN.md`, copyable Build prompt를 `inception/` 아래 생성하는 bundled skill
+- `install-aidlc-skill.sh` - AI-DLC, DESIGN.md, AI Studio skills를 Codex에 복사하고 `~/.codex/hooks.json`을 patch하는 installer
 
 ## 설치
 
@@ -42,7 +43,7 @@ $aidlc
 installer는 다음 작업을 수행합니다.
 
 1. `aidlc/`를 `~/.codex/skills/aidlc/`로 복사하고, 기존 `aidlc` skill이 있으면 먼저 백업합니다.
-2. bundled DESIGN.md skills를 `~/.codex/skills/create-design-md/`, `use-design-md/`, `eval-design-md/`, `check-design-md/`에 복사하고, 기존 skill directory가 있으면 먼저 백업합니다.
+2. bundled companion skills를 `~/.codex/skills/create-design-md/`, `use-design-md/`, `eval-design-md/`, `check-design-md/`, `google-ai-studio-md/`에 복사하고, 기존 skill directory가 있으면 먼저 백업합니다.
 3. 기존 `~/.codex/hooks.json`이 있으면 백업합니다.
 4. AI-DLC updater를 실행하는 `SessionStart` startup hook을 추가합니다.
 5. 설치 후 best-effort update를 한 번 실행합니다.
@@ -61,7 +62,7 @@ script를 사용하지 않으려면 다음 명령을 실행합니다.
 
 ```bash
 mkdir -p "$HOME/.codex/skills"
-for skill in aidlc create-design-md use-design-md eval-design-md check-design-md; do
+for skill in aidlc create-design-md use-design-md eval-design-md check-design-md google-ai-studio-md; do
   rm -rf "$HOME/.codex/skills/$skill"
 done
 cp -R "./aidlc" "$HOME/.codex/skills/aidlc"
@@ -69,12 +70,14 @@ cp -R "./skills/create-design-md" "$HOME/.codex/skills/create-design-md"
 cp -R "./skills/use-design-md" "$HOME/.codex/skills/use-design-md"
 cp -R "./skills/eval-design-md" "$HOME/.codex/skills/eval-design-md"
 cp -R "./skills/check-design-md" "$HOME/.codex/skills/check-design-md"
+cp -R "./skills/google-ai-studio-md" "$HOME/.codex/skills/google-ai-studio-md"
 ```
 
-설치 후 Codex에서 `$aidlc`와 bundled DESIGN.md skills를 명시적으로 호출할 수 있습니다.
+설치 후 Codex에서 `$aidlc`, `$google-ai-studio-md`, bundled DESIGN.md skills를 명시적으로 호출할 수 있습니다.
 
 ```text
 $aidlc
+$google-ai-studio-md
 ```
 
 또는 작업에서 `use AI-DLC` / `AI-DLC`라고 말하면 사용할 수 있습니다.

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Google AI Studio MD"
+  short_description: "Create AI Studio PRD/PDR/DESIGN.md bundles"
+  default_prompt: "Use $google-ai-studio-md to create an AI Studio-ready PRD, PDR, DESIGN.md, and copyable Build prompt."
